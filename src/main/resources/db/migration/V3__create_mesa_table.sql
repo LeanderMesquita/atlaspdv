@@ -5,7 +5,7 @@ CREATE TABLE mesa (
     numeracao_mesa INT NOT NULL UNIQUE,
     permanencia TIMESTAMP,
     ocupada BOOLEAN DEFAULT FALSE,
-    valor_total NUMERIC(10, 2) DEFAULT 0.0
+    valor_total DOUBLE PRECISION DEFAULT 0.0
 );
 
 ALTER SEQUENCE mesa_sequence OWNED BY mesa.id;

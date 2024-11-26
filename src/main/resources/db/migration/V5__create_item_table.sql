@@ -2,7 +2,7 @@ CREATE SEQUENCE item_sequence;
 
 CREATE TABLE item (
     id INT PRIMARY KEY DEFAULT NEXTVAL('item_sequence'),
-    preco NUMERIC(10, 2) NOT NULL,
+    preco DOUBLE PRECISION NOT NULL,
     nome VARCHAR(255) NOT NULL,
     em_estoque BOOLEAN DEFAULT TRUE,
     quantidade_em_estoque INT NOT NULL,
