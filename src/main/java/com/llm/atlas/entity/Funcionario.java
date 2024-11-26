@@ -22,4 +22,7 @@ public class Funcionario {
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 
+    public Funcionario(String nome) {
+        this.nome = nome;
+    }
 }
