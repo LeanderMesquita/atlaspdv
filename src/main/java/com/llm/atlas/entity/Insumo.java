@@ -3,6 +3,8 @@ package com.llm.atlas.entity;
 import com.llm.atlas.entity.enums.Medida;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.util.Set;
 
@@ -24,8 +26,15 @@ public class Insumo {
     private Set<Item> itens;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     private Medida medida;
     private Integer quantidade;
     private Double preco;
 
+    public Insumo(String nome, Medida medida, Integer quantidade, Double preco) {
+        this.nome = nome;
+        this.medida = medida;
+        this.quantidade = quantidade;
+        this.preco = preco;
+    }
 }
