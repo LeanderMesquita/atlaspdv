@@ -3,6 +3,8 @@ package com.llm.atlas.entity;
 import com.llm.atlas.entity.enums.Medida;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -36,6 +38,7 @@ public abstract class Item {
     private LocalDate atualizadoEm;
 
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     private Medida medida;
 
     @ManyToMany
@@ -50,4 +53,12 @@ public abstract class Item {
     private Set<Pedido> pedidos = new HashSet<>();
 
 
+    public Item(Double preco, String nome, Boolean emEstoque, Integer quantidadeEmEstoque, Medida medida, Set<Insumo> insumos) {
+        this.preco = preco;
+        this.nome = nome;
+        this.emEstoque = emEstoque;
+        this.quantidadeEmEstoque = quantidadeEmEstoque;
+        this.medida = medida;
+        this.insumos = insumos;
+    }
 }
