@@ -1,5 +1,6 @@
 package com.llm.atlas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.llm.atlas.entity.enums.Medida;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,6 +23,7 @@ public class Insumo {
     private Integer id;
     private String nome;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "insumos")
     private Set<Item> itens;
 

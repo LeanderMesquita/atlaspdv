@@ -5,10 +5,14 @@ import com.llm.atlas.entity.Comida;
 import com.llm.atlas.entity.Insumo;
 import com.llm.atlas.entity.Item;
 import com.llm.atlas.repository.ComidaRepository;
+import com.llm.atlas.repository.InsumoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ComidaService {
@@ -17,16 +21,26 @@ public class ComidaService {
     ComidaRepository repository;
 
     @Autowired
+    InsumoRepository insumoRepository;
+
+    @Autowired
     ItemService itemService;
 
     public void create(ComidaDto dto){
+        Set<Insumo> insumos = new HashSet<>();
+        for(Insumo insumo : dto.insumos()){
+            Insumo persistInsumo = insumoRepository.findByNome(insumo.getNome())
+                    .orElseThrow(() -> new EntityNotFoundException("Insumo não encontrado"));
+            insumos.add(persistInsumo);
+        }
+
         Comida comida = new Comida(
                 dto.preco(),
                 dto.nome(),
                 dto.emEstoque(),
                 dto.quantidadeEmEstoque(),
                 dto.medida(),
-                dto.insumos(),
+                insumos,
                 dto.porcao(),
                 dto.rotulos()
         );
@@ -34,6 +48,13 @@ public class ComidaService {
     }
 
     public void update(Integer id, ComidaDto dto){
+
+        Set<Insumo> insumos = new HashSet<>();
+        for(Insumo insumo : dto.insumos()){
+            Insumo persistInsumo = insumoRepository.findByNome(insumo.getNome())
+                    .orElseThrow(() -> new EntityNotFoundException("Insumo não encontrado"));
+            insumos.add(persistInsumo);
+        }
 
         Item item = itemService.getById(id);
 
@@ -47,7 +68,7 @@ public class ComidaService {
         comida.setEmEstoque(dto.emEstoque());
         comida.setQuantidadeEmEstoque(dto.quantidadeEmEstoque());
         comida.setMedida(dto.medida());
-        comida.setInsumos(dto.insumos());
+        comida.setInsumos(insumos);
         comida.setPorcao(dto.porcao());
         comida.setRotulos(dto.rotulos());
 
