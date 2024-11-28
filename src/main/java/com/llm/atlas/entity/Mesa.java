@@ -27,4 +27,9 @@ public class Mesa {
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 
+    public Mesa(Integer numeracaoMesa) {
+        this.numeracaoMesa = numeracaoMesa;
+        this.ocupada = true;
+        this.valorTotal = 0.0;
+    }
 }
