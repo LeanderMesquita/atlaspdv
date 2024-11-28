@@ -6,9 +6,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +29,7 @@ public class Pedido {
             joinColumns = @JoinColumn(name = "pedido_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
-    private Set<Item> itens = new HashSet<>();
+    private List<Item> itens = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "mesa_id")
@@ -46,4 +46,9 @@ public class Pedido {
     private Instant horaCancelamento;
     private Double valorPedido;
 
+    public Pedido(List<Item> itens, Mesa mesa, Funcionario responsavel) {
+        this.itens = itens;
+        this.mesa = mesa;
+        this.responsavel = responsavel;
+    }
 }
