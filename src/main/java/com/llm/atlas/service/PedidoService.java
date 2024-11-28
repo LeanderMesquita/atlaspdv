@@ -1,7 +1,14 @@
 package com.llm.atlas.service;
 
 import com.llm.atlas.dto.PedidoDto;
+import com.llm.atlas.dto.PedidoRequestDto;
+import com.llm.atlas.entity.Funcionario;
+import com.llm.atlas.entity.Item;
+import com.llm.atlas.entity.Mesa;
 import com.llm.atlas.entity.Pedido;
+import com.llm.atlas.repository.FuncionarioRepository;
+import com.llm.atlas.repository.ItemRepository;
+import com.llm.atlas.repository.MesaRepository;
 import com.llm.atlas.repository.PedidoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +24,15 @@ public class PedidoService {
     @Autowired
     PedidoRepository repository;
 
+    @Autowired
+    ItemRepository itemRepository;
+
+    @Autowired
+    MesaService mesaService;
+
+    @Autowired
+    FuncionarioService funcionarioService;
+
     public List<Pedido> getAll(){
         return repository.findAll();
     }
@@ -26,11 +42,16 @@ public class PedidoService {
         return pedido.orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado."));
     }
 
-    public void create(PedidoDto dto){
+    public void create(PedidoRequestDto dto){
+
+        List<Item> itens = itemRepository.findAllById(dto.itensId());
+        Mesa mesa = mesaService.getById(dto.mesaId());
+        Funcionario responsavel = funcionarioService.getById(UUID.fromString(dto.responsavelId()));
+
         Pedido pedido = new Pedido(
-                dto.itens(),
-                dto.mesa(),
-                dto.responsavel()
+                itens,
+                mesa,
+                responsavel
         );
 
         repository.save(pedido);

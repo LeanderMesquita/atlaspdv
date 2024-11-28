@@ -1,5 +1,6 @@
 package com.llm.atlas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.llm.atlas.entity.enums.Medida;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,6 +50,7 @@ public abstract class Item {
     )
     private Set<Insumo> insumos;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "itens")
     private Set<Pedido> pedidos = new HashSet<>();
 

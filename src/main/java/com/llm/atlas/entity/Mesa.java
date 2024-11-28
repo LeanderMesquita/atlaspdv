@@ -1,5 +1,6 @@
 package com.llm.atlas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Mesa {
     private Boolean ocupada;
     private Double valorTotal;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "mesa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 

@@ -1,6 +1,7 @@
 package com.llm.atlas.controller;
 
 import com.llm.atlas.dto.PedidoDto;
+import com.llm.atlas.dto.PedidoRequestDto;
 import com.llm.atlas.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class PedidoController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<Void> create(@Valid @RequestBody PedidoDto dto){
+    public ResponseEntity<Void> create(@Valid @RequestBody PedidoRequestDto dto){
         service.create(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -1,5 +1,6 @@
 package com.llm.atlas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Funcionario {
     private UUID id;
     private	String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pedido> pedidos;
 
