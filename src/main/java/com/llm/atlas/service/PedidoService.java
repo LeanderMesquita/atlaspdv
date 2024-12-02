@@ -57,11 +57,16 @@ public class PedidoService {
         repository.save(pedido);
     }
 
-    public void update(UUID id, PedidoDto dto){
+    public void update(UUID id, PedidoRequestDto dto){
         Pedido pedido = getById(id);
 
-        pedido.setItens(dto.itens());
-        pedido.setMesa(dto.mesa());
+        List<Item> itens = itemRepository.findAllById(dto.itensId());
+        Mesa mesa = mesaService.getById(dto.mesaId());
+        Funcionario responsavel = funcionarioService.getById(UUID.fromString(dto.responsavelId()));
+
+        pedido.setItens(itens);
+        pedido.setMesa(mesa);
+        pedido.setResponsavel(responsavel);
 
         repository.save(pedido);
     }

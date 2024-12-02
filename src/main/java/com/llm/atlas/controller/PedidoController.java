@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.PedidoDocs;
 import com.llm.atlas.dto.PedidoDto;
 import com.llm.atlas.dto.PedidoRequestDto;
 import com.llm.atlas.service.PedidoService;
@@ -39,7 +40,7 @@ public class PedidoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody PedidoDto dto){
+    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody PedidoRequestDto dto){
         service.update(UUID.fromString(id), dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
