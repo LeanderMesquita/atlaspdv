@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/pedido")
-public class PedidoController {
+public class PedidoController implements PedidoDocs{
 
     @Autowired
     PedidoService service;

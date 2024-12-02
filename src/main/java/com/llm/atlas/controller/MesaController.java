@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.MesaDocs;
 import com.llm.atlas.dto.MesaDto;
 import com.llm.atlas.service.MesaService;
 import jakarta.validation.Valid;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/mesa")
-public class MesaController {
+public class MesaController implements MesaDocs {
 
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.ItemDocs;
 import com.llm.atlas.entity.Item;
 import com.llm.atlas.service.ItemService;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/item")
-public class ItemController {
+public class ItemController implements ItemDocs {
 
     @Autowired
     ItemService service;

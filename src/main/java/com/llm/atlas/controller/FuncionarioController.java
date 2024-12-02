@@ -1,9 +1,9 @@
 package com.llm.atlas.controller;
 
 
+import com.llm.atlas.docs.FuncionarioDocs;
 import com.llm.atlas.dto.FuncionarioDto;
 import com.llm.atlas.service.FuncionarioService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/funcionario")
-public class FuncionarioController {
+public class FuncionarioController implements FuncionarioDocs {
 
     @Autowired
     FuncionarioService service;
@@ -28,46 +28,33 @@ public class FuncionarioController {
     }
 
     @GetMapping("/visualizar/{id}")
-    public ResponseEntity<?> getById(@PathVariable String id){
-        try {
-            FuncionarioDto func = new FuncionarioDto(service.getById(UUID.fromString(id)));
-            return new ResponseEntity<>(func, HttpStatus.OK);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<FuncionarioDto> getById(@PathVariable String id){
+        FuncionarioDto func = new FuncionarioDto(service.getById(UUID.fromString(id)));
+        return new ResponseEntity<>(func, HttpStatus.OK);
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<?> create(@Valid @RequestBody FuncionarioDto dto){
-        try {
-            service.create(dto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-        }
+    public ResponseEntity<Void> create(@Valid @RequestBody FuncionarioDto dto){
+
+        service.create(dto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> update(@PathVariable String id, @Valid @RequestBody FuncionarioDto dto){
-        try {
-            service.update(UUID.fromString(id), dto);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-        }
+    public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody FuncionarioDto dto){
+
+        service.update(UUID.fromString(id), dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
-        try {
-            service.delete(UUID.fromString(id));
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> delete(@PathVariable String id) {
 
-        }
+        service.delete(UUID.fromString(id));
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.ComidaDocs;
 import com.llm.atlas.dto.ComidaDto;
 import com.llm.atlas.service.ComidaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comida")
-public class ComidaController {
+public class ComidaController implements ComidaDocs {
 
     @Autowired
     ComidaService service;

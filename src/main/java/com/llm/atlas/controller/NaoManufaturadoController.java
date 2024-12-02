@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.NaoManufaturadoDocs;
 import com.llm.atlas.dto.NaoManufaturadoDto;
 import com.llm.atlas.service.NaoManufaturadoService;
 import jakarta.validation.Valid;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/nao-manufaturado")
-public class NaoManufaturadoController {
+public class NaoManufaturadoController implements NaoManufaturadoDocs {
 
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.llm.atlas.controller;
 
+import com.llm.atlas.docs.DrinkDocs;
 import com.llm.atlas.dto.DrinkDto;
 import com.llm.atlas.service.DrinkService;
 import jakarta.validation.Valid;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/drink")
-public class DrinkController {
+public class DrinkController implements DrinkDocs {
 
     @Autowired
     DrinkService service;
